@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "twitter_create.h"
+#include "twitter_create.c"
 
 
 int main() {
@@ -7,10 +7,15 @@ int main() {
     twitter twitter_system;
     create_twitter_system(&twitter_system);
 
-    for(int i =0; i < twitter_system.num_users; i++){
-        user usr = twitter_system.users[i];
-        printf("User: %s; Followers: %d; Following: %d\n",usr.username, usr.num_followers, usr.num_followers );
-    }
+    //implement here the code to print the users
+    // for each user you need to print the username, the number of followers and the number of users that the current user is following
+    user *previousPtr = NULL;
+    user *currentPtr = twitter_system.users;
+    user *nextPtr = currentPtr->next_user;
+
+    // while(nextPtr!=NULL){
+        printf("%s",currentPtr->username);
+    // }
 
 
 
