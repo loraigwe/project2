@@ -18,7 +18,7 @@ typedef struct tweet{
     int id;
     char msg[TWEET_LENGTH];
     char user[USR_LENGHT];
-
+    struct tweet *next_tweet;
 }tweet;
 
 typedef struct user{
@@ -27,13 +27,14 @@ typedef struct user{
     int num_followers;
     char following[MAX_FOLLOWING];
     int num_following;
+    struct user *next_user;
 }user;
 
 typedef struct twitter{
-    tweet news_feed[MAX_TWEETS];
-    user users[MAX_USERS];
-    int num_tweets;
-    int num_users;
+    int count_user;
+    int count_tweet;
+    user *users;
+    tweet *tweets;
 } twitter;
 
 void create_twitter_system(twitter * twitter_system);
