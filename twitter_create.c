@@ -18,7 +18,7 @@ void create_twitter_system(twitter * twitter_system){
 
     user *previousPtr = NULL;
 
-    // user *nextPtr = currentPtr->next_user;
+    // user *nextPtr  = currentPtr->next_user;
 
     for (int i =0; i < num; i++){
     user *currentPtr = twitter_system->users;
@@ -40,7 +40,7 @@ void create_twitter_system(twitter * twitter_system){
         
     }
     // printf("%s",twitter_system->users->username);
-    twitter_system->users = previousPtr;
+    // twitter_system->users = previousPtr;
     }
     
 
