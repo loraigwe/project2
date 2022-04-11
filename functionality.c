@@ -84,18 +84,20 @@ void menu(twitter *twitter_system, char name[USR_LENGHT]){
 
 void follow(user *currUser, twitter *twitter_system)
 {
-    char choice[USR_LENGHT]
+    char choice[USR_LENGHT];
+    user *currPtr = twitter_system ->users;
+
     //print users or print function 
-    while(twitter_system.users!=NULL){
-        printf("%s",twitter_system.users->username);
-        twitter_system.users = twitter_system.users->next_user;
+    while(currPtr=NULL){
+        printf("%s",currPtr->username);
+        currPtr = currPtr ->next_user;
     }
 
     printf("Who would you like to follow?");
-    scanf("%s", choice)
+    scanf("%s", choice);
 
-     while(twitter_system.users!=NULL){//change to user count 
-         if (strcmp(choice, twitter_system.users ->username)==0)
+     while(currPtr !=NULL){//change to user count 
+         if (strcmp(choice, currPtr ->username)==0)
          {
              strcpy(currUser ->followers, choice);
              currUser-> num_followers += 1; 
@@ -106,9 +108,8 @@ void follow(user *currUser, twitter *twitter_system)
              printf("User not found");
          }
 
-         while(twitter_system.users!=NULL){
-         }
-    
+        //  while(twitter_system.users!=NULL){
+        //  }    
 
 }
 
