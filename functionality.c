@@ -82,6 +82,7 @@ void menu(twitter *twitter_system, char name[USR_LENGHT]){
     }
 }
 
+//follow allows users view followers tweet
 void follow(user *currUser, twitter *twitter_system)
 {
     char choice[USR_LENGHT];
