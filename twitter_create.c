@@ -37,7 +37,6 @@ void create_twitter_system(twitter * twitter_system){
     else {
         previousPtr->next_user = newuser;
         newuser->next_user = currentPtr;
-        
     }
     // printf("%s",twitter_system->users->username);
     // twitter_system->users = previousPtr;
