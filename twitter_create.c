@@ -12,7 +12,7 @@ void create_twitter_system(twitter * twitter_system){
     int num;
     //to be completed
     twitter_system->users = NULL;
-    struct user *head;
+    
    
     printf("How many users do you want to create: ");
     scanf("%d", &num);
@@ -38,7 +38,7 @@ void create_twitter_system(twitter * twitter_system){
     else {
         previousPtr->next_user = newuser;
         newuser->next_user = currentPtr;
-        head = newuser;
+        
 
         
     }
