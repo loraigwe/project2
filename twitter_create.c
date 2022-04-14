@@ -21,7 +21,6 @@ void create_twitter_system(twitter * twitter_system){
     // user *nextPtr  = currentPtr->next_user;
 
     for (int i =0; i < num; i++){
-    user *currentPtr = twitter_system->users;
     user *newuser = malloc(sizeof(user));
     printf( "Enter your username: " );
     char name[USR_LENGHT];
@@ -34,10 +33,10 @@ void create_twitter_system(twitter * twitter_system){
         newuser->next_user = twitter_system->users;
         twitter_system->users = newuser;
     }
-    else {
-        previousPtr->next_user = newuser;
-        newuser->next_user = currentPtr;
-    }
+    // else {
+    //     previousPtr->next_user = newuser;
+    //     newuser->next_user = currentPtr;
+    // }
     // printf("%s",twitter_system->users->username);
     // twitter_system->users = previousPtr;
     }

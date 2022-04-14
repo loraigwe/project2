@@ -14,7 +14,7 @@ int main() {
     // user *nextPtr = currentPtr->next_user;
 
     while(twitter_system.users!=NULL){
-        printf("%s",twitter_system.users->username);
+        printf("%s\n",twitter_system.users->username);
         twitter_system.users = twitter_system.users->next_user;
     }
 
