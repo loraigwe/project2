@@ -89,7 +89,7 @@ void follow(user *currUser, twitter *twitter_system)
     user *currPtr = twitter_system ->users;
 
     //print users or print function 
-    while(currPtr=NULL){
+    while(currPtr !=NULL){
         printf("%s",currPtr->username);
         currPtr = currPtr ->next_user;
     }
