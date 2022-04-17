@@ -1,11 +1,18 @@
 #include <stdio.h>
 #include "twitter_create.c"
+#include "functionality.c"
+
 
 
 int main() {
 
     twitter twitter_system;
     create_twitter_system(&twitter_system);
+    struct twitter *head;
+    
+
+
+   
 
     //implement here the code to print the users
     // for each user you need to print the username, the number of followers and the number of users that the current user is following
@@ -20,6 +27,8 @@ int main() {
     user *userStartPtr = twitter_system.users;
     printUsers(userStartPtr);
     menu(&twitter_system);
+
+    
 
 
 }
