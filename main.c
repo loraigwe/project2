@@ -17,6 +17,7 @@ int main() {
         printf("%s\n",twitter_system.users->username);
         twitter_system.users = twitter_system.users->next_user;
     }
+    menu(&twitter_system);
 
 
 }

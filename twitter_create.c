@@ -56,3 +56,38 @@ void findUser(twitter *twitter_system, char name[USR_LENGHT]){
         currentPtr = currentPtr->next_user;
     }
 }
+
+void menu(twitter *twitter_system){
+//    user *current_user = findUser(twitter_system,name);
+    printf("Please select from one of the following options:\n");
+    printf("--------------------------------------------------------\n");
+    printf("|  0: End Twitter System(Exit the program)             |\n");
+    printf("|  1: Find user                                     |\n");
+    printf("|  2: Get Newest Feeds                                 |\n");
+    printf("|  3: Follow a user                                    |\n");
+    printf("|  4: Unfollow a user                                  |\n");
+    printf("|  5: Delete your account                              |\n");
+    printf("|  6: End Turn(move on to next user)                   |\n");
+    printf("--------------------------------------------------------\n");
+    int option;
+    scanf("%d",&option);
+    while(option!=0){
+        switch (option)
+        {
+            case 0:
+                return;
+                break;
+            case 1:
+                printf("please enter:");
+                char name[USR_LENGHT];
+                scanf("%s",name);
+                findUser(twitter_system,name); 
+                break;
+        // default:
+        }
+        printf("?\n");
+        scanf("%d",&option);
+        char c;
+        c = getchar();
+        }
+}
