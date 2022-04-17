@@ -13,10 +13,12 @@ int main() {
     // user *currentPtr = twitter_system.users;
     // user *nextPtr = currentPtr->next_user;
 
-    while(twitter_system.users!=NULL){
-        printf("%s\n",twitter_system.users->username);
-        twitter_system.users = twitter_system.users->next_user;
-    }
+    // while(twitter_system.users!=NULL){
+    //     printf("%s\n",twitter_system.users->username);
+    //     twitter_system.users = twitter_system.users->next_user;
+    // }
+    user *userStartPtr = twitter_system.users;
+    printUsers(userStartPtr);
     menu(&twitter_system);
 
 
