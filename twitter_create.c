@@ -43,3 +43,16 @@ void create_twitter_system(twitter * twitter_system){
     
 
 }
+
+void findUser(twitter *twitter_system, char name[USR_LENGHT]){
+   printf("*\n");
+    user *currentPtr = twitter_system->users;
+    while(currentPtr!=NULL){
+        if(strcmp(currentPtr->username,name)==0){
+            printf("found");
+            return;
+        }
+        // printf("%s",currentPtr->username);
+        currentPtr = currentPtr->next_user;
+    }
+}
