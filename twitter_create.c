@@ -45,21 +45,48 @@ void create_twitter_system(twitter * twitter_system){
 
 }
 
-void findUser(twitter *twitter_system, char name[USR_LENGHT]){
+user *findUser(twitter *twitter_system, char name[USR_LENGHT]){
    printf("*\n");
     user *currentPtr = twitter_system->users;
     while(currentPtr!=NULL){
         if(strcmp(currentPtr->username,name)==0){
             printf("found");
-            return;
+            return currentPtr;
         }
         // printf("%s",currentPtr->username);
         currentPtr = currentPtr->next_user;
     }
+
+    return 0;
 }
 
+void follow(user *currUser, twitter *twitter_system)
+{
+
+    char c[USR_LENGHT];
+    
+    
+    printf("\nWho would you like to follow?\n");
+    scanf("%s",c );
+
+     user* followee = findUser(twitter_system, c);
+     if (followee != NULL)
+     {
+         followee ->num_followers +=1;
+         strcpy(followee ->followers, currUser ->username);
+         
+         currUser-> num_following += 1;
+         strcpy(currUser ->following, followee -> username);
+         printf("successfully followed");
+         
+
+     }
+}
+
+
+
 void menu(twitter *twitter_system){
-//    user *current_user = findUser(twitter_system,name);
+   user *current_user = findUser(twitter_system,name);
     printf("Please select from one of the following options:\n");
     printf("--------------------------------------------------------\n");
     printf("|  0: End Twitter System(Exit the program)             |\n");
@@ -84,6 +111,14 @@ void menu(twitter *twitter_system){
                 scanf("%s",name);
                 findUser(twitter_system,name); 
                 break;
+
+            case 2:
+              printf("In the making");
+              break;
+
+            case 3:
+            follow(current_user,twitter_system);
+            break;
         // default:
         }
         printf("?\n");
