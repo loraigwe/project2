@@ -91,14 +91,3 @@ void menu(twitter *twitter_system){
         c = getchar();
         }
 }
-
-void printUsers(user *userPtr){
-    user *currentPtr = userPtr;
-    while(currentPtr!=NULL){
-        // if(strcmp(currentPtr->username,name)==0){
-        //     printf("found");
-        // }
-        printf("%s\n",currentPtr->username);
-        currentPtr = currentPtr->next_user;
-    }
-}
