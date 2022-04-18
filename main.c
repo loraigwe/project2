@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "twitter_create.c"
-#include "functionality.c"
+// #include "functionality.c"
 
 
 
@@ -24,8 +24,8 @@ int main() {
     //     printf("%s\n",twitter_system.users->username);
     //     twitter_system.users = twitter_system.users->next_user;
     // }
-    user *userStartPtr = twitter_system.users;
-    printUsers(userStartPtr);
+    // user *userStartPtr = twitter_system.users;
+    printUsers(&twitter_system);
     menu(&twitter_system);
 
     
