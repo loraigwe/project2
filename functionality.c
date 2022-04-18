@@ -32,85 +32,85 @@ void endTurn(user *currentUserPtr){
 
 }
 //- post tweet- follow- unfollow- delete- endturn- end twitter- getnewsfeed
-void menu(twitter *twitter_system, char name[USR_LENGHT]){
-   user *current_user = findUser(twitter_system,name);
-    printf("Please select from one of the following options:");
-    printf("--------------------------------------------------------\n");
-    printf("|  0: End Twitter System(Exit the program)             |\n");
-    printf("|  1: Post a tweet                                     |\n");
-    printf("|  2: Get Newest Feeds                                 |\n");
-    printf("|  3: Follow a user                                    |\n");
-    printf("|  4: Unfollow a user                                  |\n");
-    printf("|  5: Delete your account                              |\n");
-    printf("|  6: End Turn(move on to next user)                   |\n");
-    printf("--------------------------------------------------------\n");
-    int option;
-    scanf("%d",option);
-    // while(option>=0 && option<=4){
-    while(option){
-        switch (option)
-        {
-        case 0:
-            /* code */
-            menu(&twitter_system,name);
-            break;
-        case 1:
-            menu(&twitter_system,name);
-            break;
-        case 2:
-            menu(&twitter_system,name);
-            break;
-        case 3:
-            menu(&twitter_system,name);
-            break;
-        case 4:
-            unfollow(&twitter_system,name);
-            menu(&twitter_system,name);
-            break;
-        case 5:
-            menu(&twitter_system,name);
-            break;
-        case 6:
-            endTurn(name);
-            menu(&twitter_system,name);
-            break;
-        default:
-            printf("Invalid option!\n");
-            scanf("%d",option);
-            break;
-        }
-    }
-}
+// void menu(twitter *twitter_system, char name[USR_LENGHT]){
+//    user *current_user = findUser(twitter_system,name);
+//     printf("Please select from one of the following options:");
+//     printf("--------------------------------------------------------\n");
+//     printf("|  0: End Twitter System(Exit the program)             |\n");
+//     printf("|  1: Post a tweet                                     |\n");
+//     printf("|  2: Get Newest Feeds                                 |\n");
+//     printf("|  3: Follow a user                                    |\n");
+//     printf("|  4: Unfollow a user                                  |\n");
+//     printf("|  5: Delete your account                              |\n");
+//     printf("|  6: End Turn(move on to next user)                   |\n");
+//     printf("--------------------------------------------------------\n");
+//     int option;
+//     scanf("%d",option);
+//     // while(option>=0 && option<=4){
+//     while(option){
+//         switch (option)
+//         {
+//         case 0:
+//             /* code */
+//             menu(&twitter_system,name);
+//             break;
+//         case 1:
+//             menu(&twitter_system,name);
+//             break;
+//         case 2:
+//             menu(&twitter_system,name);
+//             break;
+//         case 3:
+//             menu(&twitter_system,name);
+//             break;
+//         case 4:
+//             unfollow(&twitter_system,name);
+//             menu(&twitter_system,name);
+//             break;
+//         case 5:
+//             menu(&twitter_system,name);
+//             break;
+//         case 6:
+//             endTurn(name);
+//             menu(&twitter_system,name);
+//             break;
+//         default:
+//             printf("Invalid option!\n");
+//             scanf("%d",option);
+//             break;
+//         }
+//     }
+// }
 
-//follow allows users view followers tweet
-void follow(user *currUser, twitter *twitter_system)
-{
-    char choice[USR_LENGHT];
-    user *currPtr = twitter_system ->users;
+// //follow allows users view followers tweet
+// void follow(user *currUser, twitter *twitter_system)
+// {
+//     char choice[USR_LENGHT];
+//     user *currPtr = twitter_system ->users;
 
-    //print users or print function 
-    while(currPtr !=NULL){
-        printf("%s",currPtr->username);
-        currPtr = currPtr ->next_user;
-    }
+//     //print users or print function 
+//     while(currPtr !=NULL){
+//         printf("%s",currPtr->username);
+//         currPtr = currPtr ->next_user;
+//     }
 
-    printf("Who would you like to follow?");
-    scanf("%s", choice);
+//     printf("Who would you like to follow?");
+//     scanf("%s", choice);
 
-     while(currPtr !=NULL){//change to user count 
-         if (strcmp(choice, currPtr ->username)==0)
-         {
-             strcpy(currUser ->followers, choice);
-             currUser-> num_followers += 1; 
-         }
+//      while(currPtr !=NULL){//change to user count 
+//          if (strcmp(choice, currPtr ->username)==0)
+//          {
+//              strcpy(currUser ->followers, choice);
+//              currUser-> num_followers += 1; 
+//          }
 
          
-         else{
-             printf("User not found");
-         }
+//          else{
+//              printf("User not found");
+//          }
 
-        //  while(twitter_system.users!=NULL){
-        //  }    
+//         //  while(twitter_system.users!=NULL){
+//         //  }    
 
-}
+// }
 

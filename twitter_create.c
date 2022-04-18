@@ -86,7 +86,10 @@ void follow(user *currUser, twitter *twitter_system)
 
 
 void menu(twitter *twitter_system){
-   user *current_user = findUser(twitter_system,name);
+    char name[USR_LENGHT];
+    printf("please enter:");
+    scanf("%s",name);
+    user *current_user = findUser(twitter_system,name);
     printf("Please select from one of the following options:\n");
     printf("--------------------------------------------------------\n");
     printf("|  0: End Twitter System(Exit the program)             |\n");
@@ -126,4 +129,15 @@ void menu(twitter *twitter_system){
         char c;
         c = getchar();
         }
+}
+
+void printUsers(twitter * twitter_system){
+    user *currentPtr = twitter_system->users;
+    while(currentPtr!=NULL){
+        // if(strcmp(currentPtr->username,name)==0){
+        //     printf("found");
+        // }
+        printf("%s\n",currentPtr->username);
+        currentPtr = currentPtr->next_user;
+    }
 }
