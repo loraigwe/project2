@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "twitter_create.c"
-#include "functionality.c"
+// #include "functionality.c"
 
 
 
