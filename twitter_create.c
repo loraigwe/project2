@@ -190,6 +190,7 @@ void delete (user * currUser, twitter *twitter_system)
 
 
 void menu(twitter *twitter_system){
+    void endTurn(twitter *twitter_system);
     char name[USR_LENGHT];
     printf("please enter:");
     scanf("%s",name);
@@ -236,6 +237,14 @@ void menu(twitter *twitter_system){
         char c;
         c = getchar();
         }
+}
+
+void endTurn(twitter *twitter_system){
+    // printf("please enter:");
+    // char name[USR_LENGHT];
+    // scanf("%s",name);
+    // user * currentUserPtr = findUser(twitter_system,name);
+    menu(twitter_system);
 }
 
 void printUsers(twitter * twitter_system){
