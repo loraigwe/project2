@@ -198,7 +198,7 @@ void menu(twitter *twitter_system){
     printf("Please select from one of the following options:\n");
     printf("--------------------------------------------------------\n");
     printf("|  0: End Twitter System(Exit the program)             |\n");
-    printf("|  1: Find user                                     |\n");
+    printf("|  1: Post Tweet                                       |\n");
     printf("|  2: Get Newest Feeds                                 |\n");
     printf("|  3: Follow a user                                    |\n");
     printf("|  4: Unfollow a user                                  |\n");
@@ -214,10 +214,7 @@ void menu(twitter *twitter_system){
                 return;
                 break;
             case 1:
-                printf("please enter:");
-                char name[USR_LENGHT];
-                scanf("%s",name);
-                findUser(twitter_system,name); 
+                printf("In the making");
                 break;
 
             case 2:
@@ -225,11 +222,17 @@ void menu(twitter *twitter_system){
               break;
 
             case 3:
-            follow(current_user,twitter_system);
-            break;
+              follow(current_user,twitter_system);
+              break;
             case 4:
-            unfollow(current_user,twitter_system);
-            break;
+              unfollow(current_user,twitter_system);
+              break;
+            case 5:
+              delete(current_user,twitter_system);
+              break;
+            case 6:
+              endTurn(twitter_system);
+              break;
         // default:
         }
         printf("?\n");
