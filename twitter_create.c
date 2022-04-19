@@ -138,6 +138,55 @@ void unfollow(user * userPtr,twitter *twitter_system){
     }
 }
 
+void delete (user * currUser, twitter *twitter_system)
+{
+     //loop through list of Current users following 
+     for(int i=0; i<currUser->num_following; i++){
+        user *followingPtr = findUser(twitter_system,currUser->following[i]); 
+
+
+    for(int k=0; k<followingPtr->num_followers; k++){
+        if(strcmp(currUser->username,followingPtr->followers[k])==0){
+             int index = k;
+            for(int j=index; j<followingPtr->num_followers; j++){
+                strcpy(followingPtr->followers[j],followingPtr->followers[j+1]);
+            }
+            followingPtr->num_followers --;
+        }
+            // }
+        }
+     }
+
+    //check if user to be deleted is at the beggining of the list 
+    if (currUser == twitter_system ->users)
+    {
+        user *tempPtr = currUser; //store value of node to be deleted 
+        twitter_system ->users = (*currUser).next_user;
+        free (tempPtr);         //delete node 
+        return;
+    }
+    else{
+
+    user *userPrevPtr = twitter_system ->users;
+    user *usercurrentPtr = twitter_system->users -> next_user;
+
+//loop through list to get user node before current node of user to be deleted 
+    while (usercurrentPtr != NULL && usercurrentPtr != currUser)
+    {
+        userPrevPtr = usercurrentPtr; //update pointers with each iteration 
+        usercurrentPtr = usercurrentPtr ->next_user;
+    }
+
+    if (usercurrentPtr != NULL)
+    {
+        user *tempPtr = currUser;
+        userPrevPtr->next_user = currUser->next_user;
+        free(tempPtr);
+        printf("User succesfully deleted \n");
+    }
+    }
+}
+
 
 
 void menu(twitter *twitter_system){
