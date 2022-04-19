@@ -46,11 +46,9 @@ void create_twitter_system(twitter * twitter_system){
 }
 
 user *findUser(twitter *twitter_system, char name[USR_LENGHT]){
-   printf("*\n");
     user *currentPtr = twitter_system->users;
     while(currentPtr!=NULL){
         if(strcmp(currentPtr->username,name)==0){
-            printf("found");
             return currentPtr;
         }
         // printf("%s",currentPtr->username);
@@ -73,14 +71,71 @@ void follow(user *currUser, twitter *twitter_system)
      if (followee != NULL)
      {
          followee ->num_followers +=1;
-         strcpy(followee ->followers, currUser ->username);
+        //  strcpy(followee ->followers, currUser ->username);
+         strcpy(followee->followers[(followee->num_followers)-1], currUser ->username);
          
          currUser-> num_following += 1;
-         strcpy(currUser ->following, followee -> username);
+        //  strcpy(currUser ->following, followee -> username);
+         strcpy(currUser->following[(currUser-> num_following)-1], followee -> username);
+         for(int i=0; i<currUser->num_following; i++){
+            //  for(int j=0; j<USR_LENGHT; j++){
+                 printf("%s\n",currUser->following[i]);
+            //  }
+         }
          printf("successfully followed");
          
 
      }
+}
+
+void unfollow(user * userPtr,twitter *twitter_system){
+    //1.iterates the twitter, find current user, get following list, print following list
+    //2.ask which user they want to unfollow, delete the username from following array, no.following decreases
+    // user *currentPtr = twitter_system->users;
+    char followingName [USR_LENGHT];
+    int index = -1;
+    for(int i=0; i<userPtr->num_following; i++){
+        printf("\n%s\n",userPtr->following[i]);
+    }
+    if(userPtr->num_following == 0){
+        printf("You have not followed anyone yet.\n");
+        return;
+    }
+    printf("Which user do you want to unfollow?\n");
+    printf("Please enter the person's username:\n");
+    scanf("%s",followingName);
+    for(int i=0; i<userPtr->num_following; i++){
+        if(strcmp(followingName,userPtr->following[i])==0){
+            index = i;
+            // if(index!=-1){
+            for(int j=index; j<userPtr->num_following; j++){
+                strcpy(userPtr->following[j],userPtr->following[j+1]);
+            }
+                userPtr->num_following --;
+                printf("unfollowed successfully.\n");
+            // }
+        }
+        else {
+            printf("You have not followed this user.\n");
+        }
+
+    }
+    index = -1;
+    user *followingPtr = findUser(twitter_system,followingName);
+    for(int k=0; k<followingPtr->num_followers; k++){
+        if(strcmp(userPtr->username,followingPtr->followers[k])==0){
+            index = k;
+            for(int j=index; j<followingPtr->num_followers; j++){
+                strcpy(followingPtr->followers[j],followingPtr->followers[j+1]);
+            }
+            followingPtr->num_followers --;
+        }
+        // if(index!=-1){
+        // }
+    }
+    for(int i=0; i<userPtr->num_following; i++){
+        printf("%s\n",userPtr->following[i]);
+    }
 }
 
 
@@ -121,6 +176,9 @@ void menu(twitter *twitter_system){
 
             case 3:
             follow(current_user,twitter_system);
+            break;
+            case 4:
+            unfollow(current_user,twitter_system);
             break;
         // default:
         }
