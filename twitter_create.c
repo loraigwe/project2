@@ -155,6 +155,17 @@ void delete (user * currUser, twitter *twitter_system)
         }
             // }
         }
+    
+    for(int k=0; k<followingPtr->num_following; k++){
+        if(strcmp(currUser->username,followingPtr->following[k])==0){
+             int index = k;
+            for(int j=index; j<followingPtr->num_following; j++){
+                strcpy(followingPtr->following[j],followingPtr->following[j+1]);
+            }
+            followingPtr->num_following --;
+        }
+            // }
+        }
      }
 
     //check if user to be deleted is at the beggining of the list 
