@@ -2,10 +2,10 @@
 // Created by Lili on 30/03/2022.
 //
 
-#ifndef ASSIGNMENT2_TWITTER_CREATE_H
-#define ASSIGNMENT2_TWITTER_CREATE_H
+#ifndef PROJECT2_TWITTER_CREATE_H
+#define PROJECT2_TWITTER_CREATE_H
 
-#endif //ASSIGNMENT2_TWITTER_CREATE_H
+#endif //PROJECT2_TWITTER_CREATE_H
 
 #define TWEET_LENGTH 270
 #define USR_LENGHT 100
@@ -38,3 +38,5 @@ typedef struct twitter{
 } twitter;
 
 void create_twitter_system(twitter * twitter_system);
+void printUsers(twitter * twitter_system);
+void menu(twitter * twitter_system);
