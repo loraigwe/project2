@@ -142,7 +142,8 @@ void delete (user * currUser, twitter *twitter_system)
 {
      //loop through list of Current users following 
      for(int i=0; i<currUser->num_following; i++){
-        user *followingPtr = findUser(twitter_system,currUser->following[i]); 
+        user *followingPtr = findUser(twitter_system,currUser->following[i]);
+         
 
 
     for(int k=0; k<followingPtr->num_followers; k++){
