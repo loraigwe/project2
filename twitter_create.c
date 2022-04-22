@@ -253,12 +253,33 @@ void delete (user * currUser, twitter *twitter_system)
     }
 }
 
+void postTweet (user*currUser, tweet** root)
+{
+    
+    //create newtweet node 
+   tweet* newTweetPtr = (tweet*) malloc(sizeof(tweet)); 
+   char tweetArray[USR_LENGHT];
+  
+   printf("Whats on your mind ? \n");
+   scanf("%s", tweetArray);
+   newTweetPtr ->id =0;
+
+   strcpy(newTweetPtr ->msg, tweetArray);
+   strcpy(newTweetPtr ->user, currUser ->username);
+
+//point node to the top 
+      newTweetPtr ->next_tweet = *root;  
+      (*root) = newTweetPtr; 
+
+}
+
 
 
 void menu(twitter *twitter_system){
     void endTurn(twitter *twitter_system);
     char name[USR_LENGHT];
     printf("please enter:");
+    tweet* head =(tweet*) malloc(sizeof(tweet));
     scanf("%s",name);
     user *current_user = findUser(twitter_system,name);
     printf("Please select from one of the following options:\n");
@@ -280,7 +301,7 @@ void menu(twitter *twitter_system){
                 return;
                 break;
             case 1:
-                printf("In the making");
+                postTweet(current_user, &head);
                 break;
 
             case 2:

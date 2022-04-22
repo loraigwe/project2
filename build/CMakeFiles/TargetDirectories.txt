@@ -1,5 +1,5 @@
-C:/Users/sujin/project2/build/CMakeFiles/project2.dir
-C:/Users/sujin/project2/build/CMakeFiles/package.dir
-C:/Users/sujin/project2/build/CMakeFiles/package_source.dir
-C:/Users/sujin/project2/build/CMakeFiles/edit_cache.dir
-C:/Users/sujin/project2/build/CMakeFiles/rebuild_cache.dir
+/Users/lotachiigwe/project2/build/CMakeFiles/project2.dir
+/Users/lotachiigwe/project2/build/CMakeFiles/package.dir
+/Users/lotachiigwe/project2/build/CMakeFiles/package_source.dir
+/Users/lotachiigwe/project2/build/CMakeFiles/edit_cache.dir
+/Users/lotachiigwe/project2/build/CMakeFiles/rebuild_cache.dir
