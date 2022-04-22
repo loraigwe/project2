@@ -6,6 +6,7 @@
 #include <string.h>
 #include "twitter_create.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 void create_twitter_system(twitter * twitter_system){
@@ -194,8 +195,9 @@ void delete (user * currUser, twitter *twitter_system)
 {
      //loop through list of Current users following 
      for(int i=0; i<currUser->num_following; i++){
-        user *followingPtr = findUser(twitter_system,currUser->following[i]);
-         
+         for (int j =0; j < currUser ->num_following; j++){
+           user *followingPtr = findUser(twitter_system,&currUser->following[i][j]);
+     
 
 
     for(int k=0; k<followingPtr->num_followers; k++){
@@ -220,7 +222,7 @@ void delete (user * currUser, twitter *twitter_system)
             // }
         }
      }
-
+     }
     //check if user to be deleted is at the beggining of the list 
     if (currUser == twitter_system ->users)
     {
