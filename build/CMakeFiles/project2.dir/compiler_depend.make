@@ -25,7 +25,8 @@ CMakeFiles/project2.dir/twitter_create.c.obj: ../twitter_create.c \
   C:/MinGW/include/strings.h \
   C:/MinGW/include/wchar.h \
   ../twitter_create.h \
-  C:/MinGW/include/stdlib.h
+  C:/MinGW/include/stdlib.h \
+  C:/MinGW/lib/gcc/mingw32/6.3.0/include/stdbool.h
 
 
 C:/MinGW/include/_mingw.h:
@@ -57,3 +58,5 @@ C:/MinGW/include/strings.h:
 C:/MinGW/include/wchar.h:
 
 C:/MinGW/include/stdlib.h:
+
+C:/MinGW/lib/gcc/mingw32/6.3.0/include/stdbool.h:
