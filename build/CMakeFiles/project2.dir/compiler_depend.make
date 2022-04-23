@@ -82,8 +82,7 @@ CMakeFiles/project2.dir/twitter_create.c.o: ../twitter_create.c \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/secure/_strings.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/secure/_string.h \
   ../twitter_create.h \
-  C:/MinGW/include/stdlib.h \
-  C:/MinGW/lib/gcc/mingw32/6.3.0/include/stdbool.h
+  C:/MinGW/include/stdlib.h
 
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/sys/_types/_mode_t.h:
@@ -258,6 +257,9 @@ CMakeFiles/project2.dir/twitter_create.c.o: ../twitter_create.c \
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/machine/_types.h:
 =======
 C:/MinGW/include/stdlib.h:
+<<<<<<< HEAD
 
 C:/MinGW/lib/gcc/mingw32/6.3.0/include/stdbool.h:
 >>>>>>> b62ab232f20913f4ac20616869dfa311638e7ad6
+=======
+>>>>>>> 454d678d091ecc4d7ca81aa2f776d37128ef9ca5
