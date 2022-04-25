@@ -42,6 +42,8 @@ void create_twitter_system(twitter * twitter_system){
     // printf("%s",twitter_system->users->username);
     // twitter_system->users = previousPtr;
     }
+    twitter_system->count_tweet = 0;
+    twitter_system->tweets = NULL;
     
 
 }
@@ -80,7 +82,8 @@ void follow(user *currUser, twitter *twitter_system)
         {
             for (int j =0; j < currUser ->num_followers; j++)
             {   
-                if (strcmp (userPtr ->username, &currUser->following[i][j]) !=0)
+                // if (strcmp (userPtr ->username, &currUser->following[i][j]) !=0) following[i] is the whole string
+                if (strcmp (userPtr ->username, currUser->following[i]) !=0)
                 {
                     printf("%s", userPtr ->username);
                     userPtr = userPtr->next_user;
@@ -160,16 +163,16 @@ void unfollow(user * userPtr,twitter *twitter_system){
     for(int i=0; i<userPtr->num_following; i++){
         if(strcmp(followingName,userPtr->following[i])==0){
             index = i;
-            // if(index!=-1){
+            if(index!=-1){
             for(int j=index; j<userPtr->num_following; j++){
                 strcpy(userPtr->following[j],userPtr->following[j+1]);
             }
                 userPtr->num_following --;
                 printf("unfollowed successfully.\n");
-            // }
-        }
-        else {
-            printf("You have not followed this user.\n");
+            }
+            else if(index == -1){
+                printf("You have not followed this user yet.\n");
+            }
         }
 
     }
@@ -195,8 +198,8 @@ void delete (user * currUser, twitter *twitter_system)
 {
      //loop through list of Current users following 
      for(int i=0; i<currUser->num_following; i++){
-         for (int j =0; j < currUser ->num_following; j++){
-           user *followingPtr = findUser(twitter_system,&currUser->following[i][j]);
+         //  for (int j =0; j < currUser ->num_following; j++) we dont need a second loop to loop through each charater, [i][j] is getting the characters, we just need [i]which is the whole string
+           user *followingPtr = findUser(twitter_system,&currUser->following[i]);
      
 
 
@@ -210,19 +213,22 @@ void delete (user * currUser, twitter *twitter_system)
         }
             // }
         }
+    }
     
-    for(int k=0; k<followingPtr->num_following; k++){
-        if(strcmp(currUser->username,followingPtr->following[k])==0){
-             int index = k;
-            for(int j=index; j<followingPtr->num_following; j++){
-                strcpy(followingPtr->following[j],followingPtr->following[j+1]);
+    // // I added this to check if its working 
+    //loop through list of current users followers
+    for(int i=0; i<currUser->num_followers; i++){
+        user *followerPtr = findUser(twitter_system,currUser->followers[i]);
+        for(int k=0; k<followerPtr->num_following; k++){
+            if(strcmp(currUser->username,followerPtr->following[k])==0){
+                int index = k;
+                for(int j=index; j<followerPtr->num_following; j++){
+                    strcpy(followerPtr->following[j],followerPtr->following[j+1]);
+                }
+                followerPtr->num_following --;
             }
-            followingPtr->num_following --;
         }
-            // }
-        }
-     }
-     }
+    }
     //check if user to be deleted is at the beggining of the list 
     if (currUser == twitter_system ->users)
     {
@@ -291,6 +297,8 @@ void menu(twitter *twitter_system){
     printf("|  4: Unfollow a user                                  |\n");
     printf("|  5: Delete your account                              |\n");
     printf("|  6: End Turn(move on to next user)                   |\n");
+    printf("|  7: See my following list                            |\n");
+    printf("|  8: See my follower list                             |\n");
     printf("--------------------------------------------------------\n");
     int option;
     scanf("%d",&option);
@@ -320,6 +328,31 @@ void menu(twitter *twitter_system){
             case 6:
               endTurn(twitter_system);
               break;
+            case 7:
+                if(current_user->num_following!=0){
+                    printf("Your current following list is:\n");
+                    for(int i=0; i<current_user->num_following; i++){
+                        printf("\n%s\n",current_user->following[i]);
+                    }
+                }
+                else{
+                    printf("You have not followed anyone.\n");
+                }
+                break;
+            case 8:
+            if(current_user->num_followers!=0){
+                printf("Your current followers list is:\n");
+                for(int i=0; i<current_user->num_followers; i++){
+                    printf("\n%s\n",current_user->followers[i]);
+                }
+            }
+            else {
+                printf("You have no followers.\n");
+            }
+                break;
+            default:
+                printf("Please enter a valid option!\n");
+                scanf("%d",&option);
         // default:
         }
         printf("?\n");
