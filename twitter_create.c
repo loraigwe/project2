@@ -200,7 +200,7 @@ void delete (user * currUser, twitter *twitter_system)
      //loop through list of Current users following 
      for(int i=0; i<currUser->num_following; i++){
          //  for (int j =0; j < currUser ->num_following; j++) we dont need a second loop to loop through each charater, [i][j] is getting the characters, we just need [i]which is the whole string
-           user *followingPtr = findUser(twitter_system,&currUser->following[i]);
+           user *followingPtr = findUser(twitter_system,currUser->following[i]);
      
 
 
