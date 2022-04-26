@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+tweet *head = NULL;
 
 void create_twitter_system(twitter * twitter_system){
     int num;
@@ -259,35 +260,43 @@ void delete (user * currUser, twitter *twitter_system)
     }
 }
 
-void postTweet (user*currUser, tweet** root)
+void postTweet (user*currUser,  char tweetArray [USR_LENGHT])
 {
-    
-    //create newtweet node 
-   tweet* newTweetPtr = (tweet*) malloc(sizeof(tweet)); 
-   char tweetArray[USR_LENGHT];
-  
-   printf("Whats on your mind ? \n");
-   scanf("%s", tweetArray);
+    // creates pointer to new node 
+   tweet* newTweetPtr =  malloc(sizeof(tweet)); 
+
+
    newTweetPtr ->id =0;
 
+//copy tweet and username into tweet array
    strcpy(newTweetPtr ->msg, tweetArray);
    strcpy(newTweetPtr ->user, currUser ->username);
 
-//point node to the top 
-      newTweetPtr ->next_tweet = *root;  
-      (*root) = newTweetPtr; 
+//update head to newnode
+      newTweetPtr ->next_tweet = head;  
+      head = newTweetPtr; 
 
 }
 
-
+void getNewsfeed ()
+{
+    // assign temp pointer to head of stack
+    tweet *temp = head;
+    while(temp != NULL)
+    {
+        printf("%s ->", temp ->msg);
+        temp = temp ->next_tweet;
+    }
+}
 
 void menu(twitter *twitter_system){
     void endTurn(twitter *twitter_system);
     char name[USR_LENGHT];
     printf("please enter:");
-    tweet* head =(tweet*) malloc(sizeof(tweet));
     scanf("%s",name);
     user *current_user = findUser(twitter_system,name);
+    char tweetArray[TWEET_LENGTH];
+    
     printf("Please select from one of the following options:\n");
     printf("--------------------------------------------------------\n");
     printf("|  0: End Twitter System(Exit the program)             |\n");
@@ -309,11 +318,14 @@ void menu(twitter *twitter_system){
                 return;
                 break;
             case 1:
-                postTweet(current_user, &head);
+                printf("tweet ?\n");
+                fgets(tweetArray, TWEET_LENGTH, stdin);
+                postTweet(current_user,tweetArray );
+                getNewsfeed();
                 break;
 
             case 2:
-              printf("In the making");
+              getNewsfeed();
               break;
 
             case 3:
