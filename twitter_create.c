@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-tweet *head = NULL;
+// tweet *head = NULL;
 
 void create_twitter_system(twitter * twitter_system){
     int num;
@@ -260,31 +260,49 @@ void delete (user * currUser, twitter *twitter_system)
     }
 }
 
-void postTweet (user*currUser,  char tweetArray [USR_LENGHT])
+void postTweet(user * currUser, tweet * head, int tweetNum)
 {
+
     // creates pointer to new node 
-   tweet* newTweetPtr =  malloc(sizeof(tweet)); 
+    tweet* newTweetPtr =  malloc(sizeof(tweet)); 
+   // pointer to the previous node created
+    tweet *previousPtr = NULL;
+    tweetNum++;
+    newTweetPtr->id = tweetNum;
+    strcpy(newTweetPtr ->user, currUser ->username);
+    printf("Please enter your message:\n");
+    fgets(newTweetPtr->msg,TWEET_LENGTH,stdin);
 
 
-   newTweetPtr ->id =0;
+//    newTweetPtr ->id =0;
 
 //copy tweet and username into tweet array
-   strcpy(newTweetPtr ->msg, tweetArray);
-   strcpy(newTweetPtr ->user, currUser ->username);
+//    strcpy(newTweetPtr ->msg, tweetArray);
 
 //update head to newnode
-      newTweetPtr ->next_tweet = head;  
-      head = newTweetPtr; 
+    if(head == NULL){
+        newTweetPtr->next_tweet = NULL;
+        head = newTweetPtr;
+    }
+    else{
+        previousPtr = head;
+        newTweetPtr ->next_tweet = previousPtr;  
+        head = newTweetPtr; 
+    }
+    printf("posted.\n");
 
 }
 
-void getNewsfeed ()
+void getNewsfeed (twitter *twitter_system, tweet * head)
 {
     // assign temp pointer to head of stack
     tweet *temp = head;
     while(temp != NULL)
     {
-        printf("%s ->", temp ->msg);
+        printf("ID: %d \n",temp->id);
+        printf("User: %s\n", temp->user);
+        printf("Message: %s \n",temp->msg);
+        // printf("%s ->", temp ->msg);
         temp = temp ->next_tweet;
     }
 }
@@ -295,7 +313,8 @@ void menu(twitter *twitter_system){
     printf("please enter:");
     scanf("%s",name);
     user *current_user = findUser(twitter_system,name);
-    char tweetArray[TWEET_LENGTH];
+    // char tweetArray[TWEET_LENGTH];
+    tweet *head = twitter_system->tweets;
     
     printf("Please select from one of the following options:\n");
     printf("--------------------------------------------------------\n");
@@ -318,14 +337,15 @@ void menu(twitter *twitter_system){
                 return;
                 break;
             case 1:
-                printf("tweet ?\n");
-                fgets(tweetArray, TWEET_LENGTH, stdin);
-                postTweet(current_user,tweetArray );
-                getNewsfeed();
+                // printf("tweet ?\n");
+                // fgets(tweetArray, TWEET_LENGTH, stdin);
+                // postTweet(current_user,tweetArray );
+                postTweet(current_user,head,twitter_system->count_tweet);
+                // getNewsfeed();
                 break;
 
             case 2:
-              getNewsfeed();
+              getNewsfeed(twitter_system,head);
               break;
 
             case 3:
