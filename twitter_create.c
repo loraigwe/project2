@@ -76,21 +76,24 @@ void follow(user *currUser, twitter *twitter_system)
         }
     }
 
-    else if (currUser ->num_following >0) //loop through following array, print users the user currently does not follow
+    // else if (currUser ->num_following >0) //loop through following array, print users the user currently does not follow
+    while (userPtr !=NULL)
     {   
-        for (int i=0; i < currUser -> num_followers; i++)
+        for (int i=0; i < currUser -> num_following; i++)
     
         {
-            for (int j =0; j < currUser ->num_followers; j++)
+            for (int j =0; j < currUser ->num_following; j++)
             {   
                 // if (strcmp (userPtr ->username, &currUser->following[i][j]) !=0) following[i] is the whole string
-                if (strcmp (userPtr ->username, currUser->following[i]) !=0)
+                if ((strcmp (userPtr ->username, currUser->following[j]) !=0) && strcmp (userPtr->username, currUser ->username) !=0)
                 {
-                    printf("%s", userPtr ->username);
-                    userPtr = userPtr->next_user;
+                    printf("%s\n", userPtr ->username);
+                    // userPtr = userPtr->next_user;
                 }
+                // userPtr = userPtr->next_user;
             
             }
+            userPtr = userPtr->next_user;
         }
     }
     
