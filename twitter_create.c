@@ -134,6 +134,18 @@ void follow(user *currUser, twitter *twitter_system)
             //  }
          }
          printf("successfully followed");
+         printf("\n");
+         printf("My following list:\n");
+         for(int i=0; i<currUser->num_following; i++){
+            //  for(int j=0; j<USR_LENGHT; j++){
+                 printf("%s\n",currUser->following[i]);
+            //  }
+         }
+         printf("\n");
+         printf("%s 's follower list:\n",followee->username);
+         for(int j=0; j<followee->num_followers; j++){
+            printf("%s\n", followee->followers[j]);
+         } 
      }
      
 
@@ -271,7 +283,8 @@ void postTweet (user*currUser,twitter *twitter_system)
 //    strcpy(newTweetPtr ->msg, tweetArray);
     newTweetPtr ->id = twitter_system->count_tweet;
     printf("tweet ?\n");
-    getchar();
+    char c;
+    c = getchar();
     fgets(newTweetPtr->msg, TWEET_LENGTH, stdin);
     strcpy(newTweetPtr ->user, currUser ->username);
 
@@ -292,70 +305,75 @@ bool checkFollowingTweet(user *currUser, tweet * tweetPtr){
 
 void getNewsfeed (user *currUser, twitter *twitter_system)
 {
-    // assign temp pointer to head of stack
-    // tweet *temp = head;
-    // tweet *temp = twitter_system->tweets;
-    // while(temp != NULL)
-    // {
-    //     printf("ID: %d \n",temp->id);
-    //     printf("User: %s\n", temp->user);
-    //     printf("Message: %s \n",temp->msg);
-    //     printf("\n");
-    //     temp = temp ->next_tweet;
-    // }
 
     tweet *startTweetPtr = twitter_system->tweets; // points to head node of tweet
-    tweet *currentTeetPtr = startTweetPtr; // points to the start
+    // while(startTweetPtr!=NULL){
+    //     printf("ID: %d \n",startTweetPtr->id);
+    //     printf("User: %s\n", startTweetPtr->user);
+    //     printf("Content: %s \n",startTweetPtr->msg);
+    //     startTweetPtr = startTweetPtr->next_tweet;
+
+    // }
+    tweet *currentTweetPtr = startTweetPtr; // points to the start
     int limit = 10; // max length of recent tweet array
-    int recentTweet[limit]; // store the ID 
+    // int recentTweet[limit]; // store the ID 
     
     // if current user has not following anyone, only prints current user's tweets
-    if(currUser->following == NULL){
-        while(currentTeetPtr!=NULL){
-            if(strcmp(currUser->username,currentTeetPtr->user)==0){
-                printf("ID: %d \n",currentTeetPtr->id);
-                printf("User: %s\n", currentTeetPtr->user);
-                printf("Content: %s \n",currentTeetPtr->msg);
+    if(currUser->num_following == 0){
+        while(currentTweetPtr!=NULL){
+            if(strcmp(currUser->username,currentTweetPtr->user)==0){
+                printf("ID: %d \n",currentTweetPtr->id);
+                printf("User: %s\n", currentTweetPtr->user);
+                printf("Content: %s \n",currentTweetPtr->msg);
             }
-            currentTeetPtr = currentTeetPtr->next_tweet;
+            currentTweetPtr = currentTweetPtr->next_tweet;
         }
     }
-    // else iterates
+    // // else iterates
     else {
         int i = 0;
-        while(currentTeetPtr!=NULL && i<10){
-            if(strcmp(currUser->username,currentTeetPtr->user)==0 || checkFollowingTweet(currUser,currentTeetPtr)==true){
-                recentTweet[i] = currentTeetPtr->id;
-                i ++;
+        // int *p=(int *)calloc(limit,sizeof(int));
+        currentTweetPtr = startTweetPtr;
+        while(currentTweetPtr!=NULL && i<limit){
+            if(strcmp(currUser->username,currentTweetPtr->user)==0 || checkFollowingTweet(currUser,currentTweetPtr)==true){
+                // p[i] = currentTeetPtr->id;
+                printf("ID: %d \n",currentTweetPtr->id);
+                printf("User: %s\n", currentTweetPtr->user);
+                printf("Content: %s \n",currentTweetPtr->msg);
+                i++;
             }
-            currentTeetPtr->next_tweet;
+            currentTweetPtr = currentTweetPtr->next_tweet;
         }
+        // int size = i;
+        // for(int i=0; i<size; i++){
+        //     printf("ID:%d\n",p[i]);
+        // }
 
-        currentTeetPtr = startTweetPtr;
-    for(int i=0; i<limit; i++){
-        while(currentTeetPtr){
-            if(recentTweet[i] == currentTeetPtr->id){
-                printf("ID: %d \n",currentTeetPtr->id);
-                printf("User: %s\n", currentTeetPtr->user);
-                printf("Content: %s \n",currentTeetPtr->msg);
-            }
-            currentTeetPtr = currentTeetPtr->next_tweet;
-        }
-    }
+    // currentTeetPtr = twitter_system->tweets;
+    // for(int i=0; i<limit; i++){
+    //     while(currentTeetPtr!=NULL){
+    //         if(recentTweet[i] == currentTeetPtr->id){
+    //             printf("ID: %d \n",currentTeetPtr->id);
+    //             printf("User: %s\n", currentTeetPtr->user);
+    //             printf("Content: %s \n",currentTeetPtr->msg);
+    //         }
+    //         currentTeetPtr = currentTeetPtr->next_tweet;
+    //     }
+    // }
 
     }
 }
 
 void menu(twitter *twitter_system){
+//    user *current_user = findUser(twitter_system,name);
     void endTurn(twitter *twitter_system);
-    char name[USR_LENGHT];
     printf("please enter:");
+    char name[USR_LENGHT];
     scanf("%s",name);
-    user *current_user = findUser(twitter_system,name);
-    char tweetArray[TWEET_LENGTH];
-    // tweet * head = twitter_system->tweets;
-    tweet *currentTweet = twitter_system->tweets;
-    
+    user * current_user = findUser(twitter_system,name);
+    // tweet *tweetPtr = twitter_system->tweets;
+    tweet *currentTweet = NULL;
+    // printf("%s",currentUserPtr->username);
     printf("Please select from one of the following options:\n");
     printf("--------------------------------------------------------\n");
     printf("|  0: End Twitter System(Exit the program)             |\n");
@@ -368,32 +386,22 @@ void menu(twitter *twitter_system){
     printf("|  7: See my following list                            |\n");
     printf("|  8: See my follower list                             |\n");
     printf("|  9: See all tweets                                   |\n");
+    printf("|  10: See all users                                   |\n");
     printf("--------------------------------------------------------\n");
     int option;
     scanf("%d",&option);
-    while(option!=0){
+    while(option){
         switch (option)
         {
             case 0:
                 return;
                 break;
             case 1:
-                // printf("tweet ?\n");
-                // fgets(tweetArray, TWEET_LENGTH, stdin);
                 postTweet(current_user,twitter_system);
-                // postTweet(current_user,&head,twitter_system->count_tweet);
-                // tweet *currPtr = head;
-                // while(currPtr!=NULL){
-                //     printf("%s ->\n",head->msg);
-                //     currPtr = currPtr->next_tweet;
-                // }
-                // getNewsfeed();
                 break;
-
             case 2:
-              getNewsfeed(current_user,twitter_system);
+                getNewsfeed(current_user,twitter_system);
               break;
-
             case 3:
               follow(current_user,twitter_system);
               break;
@@ -429,22 +437,28 @@ void menu(twitter *twitter_system){
             }
                 break;
             case 9:
+            currentTweet = twitter_system->tweets;
             while(currentTweet!=NULL){
                 printf("ID: %d \n",currentTweet->id);
                 printf("User: %s\n", currentTweet->user);
                 printf("Content: %s \n",currentTweet->msg);
+                printf("%p\n",currentTweet->next_tweet);
                 currentTweet = currentTweet->next_tweet;
             }
+            // printf("->NULL\n");
             break;
+            case 10:
+                printUsers(twitter_system);
+                break;
             default:
                 printf("Please enter a valid option!\n");
-                // scanf("%d",&option);
+                break;
         // default:
         }
         printf("?\n");
+        // char c;
+        // c = getchar();
         scanf("%d",&option);
-        char c;
-        c = getchar();
         }
 }
 
