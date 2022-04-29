@@ -428,6 +428,13 @@ void getNewsfeed (user *currUser, twitter *twitter_system)
     }
 }
 
+void endTwitter (twitter *twitter_system)
+{
+    printf("Twitter succesfully terminated");
+    free (twitter_system);
+    exit;
+}
+
 void menu(twitter *twitter_system){
 //    user *current_user = findUser(twitter_system,name);
     void endTurn(twitter *twitter_system);
@@ -458,7 +465,7 @@ void menu(twitter *twitter_system){
         switch (option)
         {
             case 0:
-                exit;
+                endTwitter(twitter_system);
                 break;
             case 1:
                 postTweet(current_user,twitter_system);
