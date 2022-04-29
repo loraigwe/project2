@@ -14,12 +14,14 @@ void create_twitter_system(twitter * twitter_system){
     int num;
     //to be completed
     twitter_system->users = NULL;
+    twitter_system ->count_user =0;
     
    
     printf("How many users do you want to create: ");
     scanf("%d", &num);
 
     user *previousPtr = NULL;
+    
 
     // user *nextPtr  = currentPtr->next_user;
 
@@ -32,6 +34,8 @@ void create_twitter_system(twitter * twitter_system){
     strcpy(newuser->username,name);
     newuser->num_followers=0;
     newuser->num_following=0;
+    twitter_system ->count_user +=1;
+
     if(previousPtr==NULL){
         newuser->next_user = twitter_system->users;
         twitter_system->users = newuser;
@@ -66,16 +70,23 @@ void follow(user *currUser, twitter *twitter_system)
 {
     char c[USR_LENGHT];
     bool userfollow = false;
+    int userCount =0;
 
 // every user begins with no followers. print all users except current user 
     user* userPtr = twitter_system ->users;  
     if (currUser->num_following ==0){
         while(userPtr!= NULL)
         {  if (userPtr != currUser)
-                printf("%s\n", userPtr ->username);
-                
+                {printf("%s\n", userPtr ->username);
+                userCount +=1;}
             userPtr = userPtr->next_user;
         }
+    }
+
+    else if (currUser->num_following == twitter_system->count_user -1)
+    {
+        printf("All users followed");
+        return;
     }
 
      //loop through following array, print users the user currently does not follow
@@ -92,10 +103,10 @@ void follow(user *currUser, twitter *twitter_system)
                 userPtr = userPtr->next_user;
             
             }
-            
-        
     }
-    
+     
+
+     
     printf("\nWho would you like to follow?\n");
     scanf("%s",c );
 
