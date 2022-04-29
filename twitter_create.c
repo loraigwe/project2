@@ -66,19 +66,19 @@ void follow(user *currUser, twitter *twitter_system)
 {
     char c[USR_LENGHT];
     bool userfollow = false;
-    
 
-    user* userPtr = twitter_system ->users; //print all users if current user has no followers 
-    // if (currUser->num_following ==0){
-    //     while(userPtr!= NULL)
-    //     {  if (userPtr != currUser)
-    //             printf("%s\n", userPtr ->username);
+// every user begins with no followers. print all users except current user 
+    user* userPtr = twitter_system ->users;  
+    if (currUser->num_following ==0){
+        while(userPtr!= NULL)
+        {  if (userPtr != currUser)
+                printf("%s\n", userPtr ->username);
                 
-    //         userPtr = userPtr->next_user;
-    //     }
-    // }
+            userPtr = userPtr->next_user;
+        }
+    }
 
-    // else if (currUser ->num_following >0) //loop through following array, print users the user currently does not follow
+     //loop through following array, print users the user currently does not follow
     while (userPtr !=NULL)
     {   
             for (int j =0; j < currUser ->num_following; j++)
@@ -216,14 +216,19 @@ void unfollow(user * userPtr,twitter *twitter_system){
     }
 }
 
+
+//function that takes a pointer to current user and deletes all information regarding user 
 void delete (user * currUser, twitter *twitter_system)
 {
+    tweet *tweetHead = twitter_system -> tweets;
+
+
+    // tweet *tempPtr = twitter_system ->tweets;
      //loop through list of Current users following 
      for(int i=0; i<currUser->num_following; i++){
          //  for (int j =0; j < currUser ->num_following; j++) we dont need a second loop to loop through each charater, [i][j] is getting the characters, we just need [i]which is the whole string
            user *followingPtr = findUser(twitter_system,currUser->following[i]);
      
-
 
     for(int k=0; k<followingPtr->num_followers; k++){
         if(strcmp(currUser->username,followingPtr->followers[k])==0){
@@ -233,7 +238,7 @@ void delete (user * currUser, twitter *twitter_system)
             }
             followingPtr->num_followers --;
         }
-            // }
+            
         }
     }
     
@@ -251,6 +256,7 @@ void delete (user * currUser, twitter *twitter_system)
             }
         }
     }
+
     //check if user to be deleted is at the beggining of the list 
     if (currUser == twitter_system ->users)
     {
@@ -261,8 +267,38 @@ void delete (user * currUser, twitter *twitter_system)
     }
     else{
 
+       //place pointer at the beginning of tweet stack 
+        tweet*prevTweetPtr = twitter_system ->tweets;
+        tweet *currTweetPtr = twitter_system ->tweets->next_tweet;
+        tweet *temptweetPtr;
+
+      // if curr user to be deleted is at the beginning of the tweet stack remove stack head
+        if (strcmp(prevTweetPtr ->user, currUser ->username) ==0)
+        {
+            twitter_system ->tweets = currTweetPtr;
+            free(prevTweetPtr);
+        }
+
+        else
+        {   // loop through stack and get previous node pointer 
+            while (currTweetPtr != NULL && (strcmp(currTweetPtr ->user, currUser ->username ) !=0))
+            {
+               prevTweetPtr = currTweetPtr;
+               currTweetPtr = currTweetPtr ->next_tweet;
+            }
+
+            if (currTweetPtr != NULL)
+            {
+                temptweetPtr = currTweetPtr;
+                prevTweetPtr ->next_tweet = currTweetPtr ->next_tweet;
+                free(temptweetPtr);
+            }
+        }
+
     user *userPrevPtr = twitter_system ->users;
     user *usercurrentPtr = twitter_system->users -> next_user;
+
+
 
 //loop through list to get user node before current node of user to be deleted 
     while (usercurrentPtr != NULL && usercurrentPtr != currUser)
@@ -271,15 +307,23 @@ void delete (user * currUser, twitter *twitter_system)
         usercurrentPtr = usercurrentPtr ->next_user;
     }
 
+    //delete node when curr user has been found
     if (usercurrentPtr != NULL)
     {
         user *tempPtr = currUser;
         userPrevPtr->next_user = currUser->next_user;
         free(tempPtr);
         printf("User succesfully deleted \n");
+        
     }
     }
+
+    // call menu function after succesfully deleting user
+     menu(twitter_system);
+
 }
+
+
 
 void postTweet (user*currUser,twitter *twitter_system)
 {
@@ -403,7 +447,7 @@ void menu(twitter *twitter_system){
         switch (option)
         {
             case 0:
-                return;
+                exit;
                 break;
             case 1:
                 postTweet(current_user,twitter_system);
