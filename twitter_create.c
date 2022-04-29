@@ -66,35 +66,34 @@ void follow(user *currUser, twitter *twitter_system)
 {
     char c[USR_LENGHT];
     bool userfollow = false;
+    
 
     user* userPtr = twitter_system ->users; //print all users if current user has no followers 
-    if (currUser->num_following ==0){
-        while(userPtr!= NULL)
-        {  if (userPtr != currUser)
-                printf("%s\n", userPtr ->username);
-            userPtr = userPtr->next_user;
-        }
-    }
+    // if (currUser->num_following ==0){
+    //     while(userPtr!= NULL)
+    //     {  if (userPtr != currUser)
+    //             printf("%s\n", userPtr ->username);
+                
+    //         userPtr = userPtr->next_user;
+    //     }
+    // }
 
     // else if (currUser ->num_following >0) //loop through following array, print users the user currently does not follow
     while (userPtr !=NULL)
     {   
-        for (int i=0; i < currUser -> num_following; i++)
-    
-        {
             for (int j =0; j < currUser ->num_following; j++)
             {   
                 // if (strcmp (userPtr ->username, &currUser->following[i][j]) !=0) following[i] is the whole string
                 if ((strcmp (userPtr ->username, currUser->following[j]) !=0) && strcmp (userPtr->username, currUser ->username) !=0)
                 {
                     printf("%s\n", userPtr ->username);
-                    // userPtr = userPtr->next_user;
+                   
                 }
-                // userPtr = userPtr->next_user;
+                userPtr = userPtr->next_user;
             
             }
-            userPtr = userPtr->next_user;
-        }
+            
+        
     }
     
     printf("\nWho would you like to follow?\n");
@@ -102,15 +101,13 @@ void follow(user *currUser, twitter *twitter_system)
 
     
     //check if current user currently follows chosen followee
-     if (currUser->num_followers > 0){
+     if (currUser->num_following > 0){
     //  if (followee != NULL)
      
          
-         for (int i=0; i < currUser->num_following; i++)
-        {
             for (int j =0; j < currUser->num_following; j++)
             {
-                if (strcmp (c, &currUser->following[i][j]) ==0 )
+                if (strcmp (c, currUser->following[j]) ==0 )
                 {
                     printf("Already followed user\n");
                     userfollow = true;
@@ -119,11 +116,26 @@ void follow(user *currUser, twitter *twitter_system)
 
             }
         }
-     }
+     
      //only follow if user exists and is not being followed by current user
          
          if (userfollow == false){
              user* followee = findUser(twitter_system, c);
+             if (followee == NULL)
+             {
+                 printf("User not found\n");
+                 printf("Kindly select another menu option\n");
+                  return;
+                 
+             }
+
+             else if ( strcmp(followee -> username, currUser ->username) ==0)
+             {
+                 printf("Can not follow current user\n ");
+                  return;
+                 
+             }
+             else{
          followee ->num_followers +=1;
         //  strcpy(followee ->followers, currUser ->username);
          strcpy(followee->followers[(followee->num_followers)-1], currUser ->username);
@@ -151,13 +163,7 @@ void follow(user *currUser, twitter *twitter_system)
          } 
      }
      
-
-     
-
-     else
-     {
-         printf("user not found");
-     }
+}
 }
 
 void unfollow(user * userPtr,twitter *twitter_system){
