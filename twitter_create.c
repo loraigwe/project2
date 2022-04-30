@@ -370,22 +370,11 @@ void getNewsfeed (user *currUser, twitter *twitter_system)
 
 void endTwitter (twitter *twitter_system)
 {
-    printf("Twitter succesfully terminated");
+    printf("Twitter succesfully terminated\n");
     free (twitter_system);
-    exit;
 }
 
-void menu(twitter *twitter_system){
-    void endTurn(twitter *twitter_system);
-    printf("please enter:");
-    char name[USR_LENGHT];
-    gets(name);
-    if(findUser(twitter_system,name)==NULL){
-        printf("User doesn't exit, please enter a valid username.\n");
-        menu(twitter_system);
-    }
-    user * current_user = findUser(twitter_system,name);
-    tweet *currentTweet = NULL;
+void instructions(){
     printf("Please select from one of the following options:\n");
     printf("--------------------------------------------------------\n");
     printf("|  0: End Twitter System(Exit the program)             |\n");
@@ -400,15 +389,34 @@ void menu(twitter *twitter_system){
     printf("|  9: See all tweets                                   |\n");
     printf("|  10: See all users                                   |\n");
     printf("--------------------------------------------------------\n");
+}
+
+void menu(twitter *twitter_system){
+    void endTurn(twitter *twitter_system);
+    printf("please enter your username to continue with more functions:\n");
+    char name[USR_LENGHT];
+    gets(name);
+    if(findUser(twitter_system,name)==NULL){
+        printf("User doesn't exit, please enter a valid username.\n");
+        menu(twitter_system);
+    }
+    user * current_user = findUser(twitter_system,name);
+    tweet *currentTweet = NULL;
+    instructions();
     int option;
     scanf("%d",&option);
     char c = getchar();
+    // if(option<0 || option >10){
+    //     printf("Please enter a valid option(between 0 and 6):\n");
+    //     scanf("%d",&option);
+    //     char c = getchar();       
+    // }
     while(option){
         switch (option)
         {
             case 0:
                 endTwitter(twitter_system);
-                break;
+                return;
             case 1:
                 postTweet(current_user,twitter_system);
                 break;
@@ -463,10 +471,12 @@ void menu(twitter *twitter_system){
                 printUsers(twitter_system);
                 break;
             default:
-                printf("Please enter a valid option!\n");
+                printf("Please enter a valid option(between 0 and 6):\n");
+                // scanf("%d",&option);
+                // char a = getchar();
                 break;
         }
-        printf("?\n");
+        instructions();
         scanf("%d",&option);
         char a = getchar();
         }
