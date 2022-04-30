@@ -8,22 +8,17 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-// tweet *head = NULL;
-
 void create_twitter_system(twitter * twitter_system){
     int num;
-    //to be completed
     twitter_system->users = NULL;
     twitter_system ->count_user =0;
     
-   
     printf("How many users do you want to create: ");
     scanf("%d", &num);
+    char c;
+    c = getchar();
 
     user *previousPtr = NULL;
-    
-
-    // user *nextPtr  = currentPtr->next_user;
 
     for (int i =0; i < num; i++){
     user *newuser = malloc(sizeof(user));
@@ -40,16 +35,9 @@ void create_twitter_system(twitter * twitter_system){
         newuser->next_user = twitter_system->users;
         twitter_system->users = newuser;
     }
-    // else {
-    //     previousPtr->next_user = newuser;
-    //     newuser->next_user = currentPtr;
-    // }
-    // printf("%s",twitter_system->users->username);
-    // twitter_system->users = previousPtr;
-    }
     twitter_system->count_tweet = 0;
     twitter_system->tweets = NULL;
-    
+    }
 
 }
 
@@ -59,7 +47,7 @@ user *findUser(twitter *twitter_system, char name[USR_LENGHT]){
         if(strcmp(currentPtr->username,name)==0){
             return currentPtr;
         }
-        // printf("%s",currentPtr->username);
+        
         currentPtr = currentPtr->next_user;
     }
 
