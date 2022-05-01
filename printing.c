@@ -6,10 +6,13 @@
 // function to display all user created
 void printUsers(twitter * twitter_system){
     user *currentPtr = twitter_system->users;
+    printf("Here is a list of users created:\n");
+    printf("\n");
     while(currentPtr!=NULL){
         printf("Username: %s\n",currentPtr->username);
         printf("Number of followings: %d\n", currentPtr->num_following);
         printf("Number of followers: %d\n",currentPtr->num_followers);
+        printf("\n");
         currentPtr = currentPtr->next_user;
     }
 }
@@ -21,6 +24,7 @@ void getNewsfeed (user *currUser, twitter *twitter_system)
     tweet *currentTweetPtr = startTweetPtr; // points to the start
     int limit = 10; // max length of recent tweet to be printed
     printf("Here is your 10 most recent feeds:\n");
+    printf("\n");
     
     // if current user has not following anyone, only prints current user's tweets
     if(currUser->num_following == 0){
@@ -28,7 +32,8 @@ void getNewsfeed (user *currUser, twitter *twitter_system)
             if(strcmp(currUser->username,currentTweetPtr->user)==0){
                 printf("ID: %d \n",currentTweetPtr->id);
                 printf("User: %s\n", currentTweetPtr->user);
-                printf("Tweet: %s \n",currentTweetPtr->msg);
+                printf("Tweet: %s\n",currentTweetPtr->msg);
+                printf("\n");
             }
             currentTweetPtr = currentTweetPtr->next_tweet;
         }
@@ -39,9 +44,10 @@ void getNewsfeed (user *currUser, twitter *twitter_system)
         currentTweetPtr = startTweetPtr;
         while(currentTweetPtr!=NULL && i<limit){
             if(strcmp(currUser->username,currentTweetPtr->user)==0 || checkFollowingTweet(currUser,currentTweetPtr)==true){
-                printf("ID: %d \n",currentTweetPtr->id);
+                printf("ID: %d\n",currentTweetPtr->id);
                 printf("User: %s\n", currentTweetPtr->user);
-                printf("Content: %s \n",currentTweetPtr->msg);
+                printf("Tweet: %s\n",currentTweetPtr->msg);
+                printf("\n");
                 i++;
             }
             currentTweetPtr = currentTweetPtr->next_tweet;
