@@ -14,15 +14,20 @@ void create_twitter_system(twitter * twitter_system){
     while(num <=0 || num>MAX_USERS){
         scanf("%d",&num);
     }
-    char c;
-    c = getchar(); // to store enter key pressed
+    getchar(); // to store enter key pressed
     
     // for loop to create a specific number of users
     for (int i =0; i < num; i++){
     user *newuser = malloc(sizeof(user)); // malloc allocates memory for new user pointer
-    printf( "Enter your username: " );
+    printf( "Enter your username: \n" );
     char name[USR_LENGHT];
     gets(name);
+    // avoid user input empty string
+    if(strlen(name)==0){
+        printf("Invalid username.\n");
+        printf("Please re-enter:\n");
+        gets(name);
+    }
     strcpy(newuser->username,name);
     newuser->num_followers=0; // assume user doesn't have any followers at the start
     newuser->num_following=0; // assume user doesn't follow any other users at the start

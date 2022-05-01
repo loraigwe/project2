@@ -20,6 +20,7 @@ void getNewsfeed (user *currUser, twitter *twitter_system)
     tweet *startTweetPtr = twitter_system->tweets; // points to head node of tweet
     tweet *currentTweetPtr = startTweetPtr; // points to the start
     int limit = 10; // max length of recent tweet to be printed
+    printf("Here is your 10 most recent feeds:\n");
     
     // if current user has not following anyone, only prints current user's tweets
     if(currUser->num_following == 0){
@@ -27,7 +28,7 @@ void getNewsfeed (user *currUser, twitter *twitter_system)
             if(strcmp(currUser->username,currentTweetPtr->user)==0){
                 printf("ID: %d \n",currentTweetPtr->id);
                 printf("User: %s\n", currentTweetPtr->user);
-                printf("Content: %s \n",currentTweetPtr->msg);
+                printf("Tweet: %s \n",currentTweetPtr->msg);
             }
             currentTweetPtr = currentTweetPtr->next_tweet;
         }

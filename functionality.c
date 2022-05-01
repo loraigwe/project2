@@ -120,18 +120,18 @@ void follow(user *currUser, twitter *twitter_system)
 }
 
 // function that allows user to unfollow a user from their following list
-void unfollow(user * userPtr,twitter *twitter_system){
+void unfollow(user * currUserPtr,twitter *twitter_system){
 
     char followeeName [USR_LENGHT];
     int index = -1;
 
     // print out current user's following list
-    for(int i=0; i<userPtr->num_following; i++){
-        printf("\n%s\n",userPtr->following[i]);
+    for(int i=0; i<currUserPtr->num_following; i++){
+        printf("\n%s\n",currUserPtr->following[i]);
     }
     
     // check if current user's following list is empty
-    if(userPtr->num_following == 0){
+    if(currUserPtr->num_following == 0){
         printf("You have not followed anyone yet.\n");
         return;
     }
@@ -139,22 +139,28 @@ void unfollow(user * userPtr,twitter *twitter_system){
     printf("Please enter the person's username:\n");
     gets(followeeName);
 
+    if(strcmp(followeeName,currUserPtr->username)==0){
+        printf("You can not unfollow yourself.\n");
+        printf("Kindly select another menu option\n");
+        return;
+    }
     // loop thorugh the following array, find the index of username of followee of which the current user wish to unfollow
-    for(int i=0; i<userPtr->num_following; i++){
-        if(strcmp(followeeName,userPtr->following[i])==0){
+    for(int i=0; i<currUserPtr->num_following; i++){
+        if(strcmp(followeeName,currUserPtr->following[i])==0){
             index = i; // update the index value to the nth row where username of followee is found
+
             //remove username of followee from the array, update following array by moving all the usernames after this followee one position to the left
-            for(int j=index; j<userPtr->num_following; j++){
-                strcpy(userPtr->following[j],userPtr->following[j+1]);
+            for(int j=index; j<currUserPtr->num_following; j++){
+                strcpy(currUserPtr->following[j],currUserPtr->following[j+1]);
             }
-            userPtr->num_following --; // decrement current user's number of followings by 1
+            currUserPtr->num_following --; // decrement current user's number of followings by 1
 
             index = -1; // reset index value
             user *followeePtr = findUser(twitter_system,followeeName); // return a pointer points to the user which the current user wish to unfollow
 
             // loop through followers array of this followee, delete current user's username from the array
             for(int k=0; k<followeePtr->num_followers; k++){
-                if(strcmp(userPtr->username,followeePtr->followers[k])==0){
+                if(strcmp(currUserPtr->username,followeePtr->followers[k])==0){
                     index = k;
                     for(int j=index; j<followeePtr->num_followers; j++){
                         strcpy(followeePtr->followers[j],followeePtr->followers[j+1]);
@@ -285,13 +291,21 @@ void postTweet (user*currUser,twitter *twitter_system)
         twitter_system ->count_tweet ++;
         // creates pointer to new node 
         tweet* newTweetPtr =  malloc(sizeof(tweet)); // allocate memory for newTweetPtr
-        newTweetPtr->id = twitter_system->count_tweet; // timestamp of newTweet
+        newTweetPtr->id = twitter_system->count_tweet; // timestamp of new tweet
         printf("tweet ?\n");
         fgets(newTweetPtr->msg, TWEET_LENGTH, stdin);
+        char msg[TWEET_LENGTH];
+        strcpy(msg,newTweetPtr->msg);
+        if(strlen(msg)==0){
+            printf("You have not entered anything yet.\n");
+            printf("Please re-enter:\n");
+            fgets(newTweetPtr->msg, TWEET_LENGTH, stdin); 
+        }
         strcpy(newTweetPtr ->user, currUser ->username);
         //update head to newnode
         newTweetPtr->next_tweet = twitter_system->tweets;  
         twitter_system->tweets = newTweetPtr; 
+        printf("New tweet posted.\n");
     }
 
 }
@@ -299,8 +313,32 @@ void postTweet (user*currUser,twitter *twitter_system)
 // function to exit the program
 void endTwitter (twitter *twitter_system)
 {
-    printf("Twitter successfully terminated\n");
+    user *p, *q; // pointer to user node
+    tweet *a, *b; // pointer to tweet node
+    p = twitter_system->users; // points to head of users linked list
+
+    // free the memory of all users
+    while(p){
+        q = p->next_user;
+        free(p);
+        p = q;
+    }
+    twitter_system->users = NULL;
+
+    a = twitter_system->tweets; // points to head of tweets linked list
+
+    // free the memory of all tweets
+    while(a){
+        b = a->next_tweet;
+        free(a);
+        a = b;
+    }
+    twitter_system->tweets = NULL;
+
     free (twitter_system);
+    twitter_system = NULL;
+
+    printf("Twitter successfully terminated\n");
 }
 
 // function allow the program to proceed to the next user
@@ -335,6 +373,7 @@ void menu(twitter *twitter_system){
     instructions(); // display instructions
     int option;
     scanf("%d",&option);
+    getchar(); // to store enter key pressed
     if(option == 0){
         endTwitter(twitter_system);
         exit(0);
@@ -343,26 +382,21 @@ void menu(twitter *twitter_system){
     // allow user to continue choosing functions
     while(option!=0){
         if(option == 1) {
-            getchar();
             postTweet(current_user, twitter_system);
         }
         else if(option == 2) {
             getNewsfeed(current_user, twitter_system);
         }
         else if(option == 3) {
-            getchar();
             follow(current_user, twitter_system);
         }
         else if(option == 4) {
-            getchar();
             unfollow(current_user, twitter_system);
         }
         else if(option == 5) {
-            getchar();
             delete(current_user, twitter_system);
         }
         else if(option == 6) {
-            getchar();
             endTurn(twitter_system);
         }
         else if(option == 7) {
@@ -402,9 +436,11 @@ void menu(twitter *twitter_system){
         else{
             printf("Please enter a valid option(between 0 and 6):\n");
             scanf("%d",&option);
+            getchar(); // to store enter key pressed
         }
         instructions();
         scanf("%d",&option);
+        getchar(); // to store enter key pressed
         if(option == 0){
             endTwitter(twitter_system);
             exit(0);
