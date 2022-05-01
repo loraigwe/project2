@@ -38,5 +38,3 @@ typedef struct twitter{
 } twitter;
 
 void create_twitter_system(twitter * twitter_system);
-void printUsers(twitter * twitter_system);
-void menu(twitter * twitter_system);

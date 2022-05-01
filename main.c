@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include "twitter_create.h"
-// #include "functionality.c"
-
-
+#include "functionality.h"
+#include "printing.h"
 
 int main() {
 
