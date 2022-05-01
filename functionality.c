@@ -335,7 +335,6 @@ void menu(twitter *twitter_system){
     instructions(); // display instructions
     int option;
     scanf("%d",&option);
-    getchar();
     if(option == 0){
         endTwitter(twitter_system);
         exit(0);
@@ -344,21 +343,26 @@ void menu(twitter *twitter_system){
     // allow user to continue choosing functions
     while(option!=0){
         if(option == 1) {
+            getchar();
             postTweet(current_user, twitter_system);
         }
         else if(option == 2) {
             getNewsfeed(current_user, twitter_system);
         }
         else if(option == 3) {
+            getchar();
             follow(current_user, twitter_system);
         }
         else if(option == 4) {
+            getchar();
             unfollow(current_user, twitter_system);
         }
         else if(option == 5) {
+            getchar();
             delete(current_user, twitter_system);
         }
         else if(option == 6) {
+            getchar();
             endTurn(twitter_system);
         }
         else if(option == 7) {
@@ -398,11 +402,9 @@ void menu(twitter *twitter_system){
         else{
             printf("Please enter a valid option(between 0 and 6):\n");
             scanf("%d",&option);
-            getchar();
         }
         instructions();
         scanf("%d",&option);
-        char c = getchar();
         if(option == 0){
             endTwitter(twitter_system);
             exit(0);
