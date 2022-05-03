@@ -66,9 +66,5 @@ void instructions(){
     printf("|  4: Unfollow a user                                  |\n");
     printf("|  5: Delete your account                              |\n");
     printf("|  6: End Turn(move on to next user)                   |\n");
-    printf("|  7: See my following list                            |\n");
-    printf("|  8: See my follower list                             |\n");
-    printf("|  9: See all tweets                                   |\n");
-    printf("|  10: See all users                                   |\n");
     printf("--------------------------------------------------------\n");
 }
