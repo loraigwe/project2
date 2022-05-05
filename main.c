@@ -7,7 +7,6 @@ int main() {
 
     twitter twitter_system;
     create_twitter_system(&twitter_system);
-    struct twitter *head;
 
     printUsers(&twitter_system);
     menu(&twitter_system);

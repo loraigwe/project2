@@ -302,20 +302,25 @@ void postTweet (user*currUser,twitter *twitter_system)
         twitter_system ->count_tweet ++;
         // creates pointer to new node 
         tweet* newTweetPtr =  malloc(sizeof(tweet)); // allocate memory for newTweetPtr
-        newTweetPtr->id = twitter_system->count_tweet; // timestamp of new tweet
-        printf("tweet ?\n");
-        gets(newTweetPtr->msg);
-        // check if current user entered empty string
-        if(strlen(newTweetPtr->msg)==0){
-            printf("You have not entered anything yet.\n");
-            printf("Please re-enter:\n");
-            fgets(newTweetPtr->msg, TWEET_LENGTH, stdin); 
+        if(newTweetPtr!=NULL){
+            newTweetPtr->id = twitter_system->count_tweet; // timestamp of new tweet
+            printf("tweet ?\n");
+            gets(newTweetPtr->msg);
+            // check if current user entered empty string
+            if(strlen(newTweetPtr->msg)==0){
+                printf("You have not entered anything yet.\n");
+                printf("Please re-enter:\n");
+                fgets(newTweetPtr->msg, TWEET_LENGTH, stdin); 
+            }
+            strcpy(newTweetPtr ->user, currUser ->username);
+            //update head to newnode
+            newTweetPtr->next_tweet = twitter_system->tweets;  
+            twitter_system->tweets = newTweetPtr; 
+            printf("New tweet posted.\n");
         }
-        strcpy(newTweetPtr ->user, currUser ->username);
-        //update head to newnode
-        newTweetPtr->next_tweet = twitter_system->tweets;  
-        twitter_system->tweets = newTweetPtr; 
-        printf("New tweet posted.\n");
+        else{
+            printf("No more memory available.\n");
+        }
     }
 
 }
