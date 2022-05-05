@@ -2,6 +2,7 @@
 #include <string.h>
 #include "twitter_create.h"
 #include "functionality.h"
+#include "printing.h"
 #include <stdbool.h>
 // function to display all user created
 void printUsers(twitter * twitter_system){

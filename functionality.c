@@ -2,6 +2,7 @@
 #include <string.h>
 #include "twitter_create.h"
 #include "printing.h"
+#include "functionality.h"
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -381,6 +382,7 @@ void menu(twitter *twitter_system){
     tweet *currentTweet = NULL;
     printf("Number of followings: %d\n",current_user->num_following); // print number of followings of current user
     printf("Number of followers: %d\n",current_user->num_followers); // print number of followers of current user
+    printf("\n Hello %s \n",current_user->username);
     instructions(); // display instructions
     int option;
     scanf("%d",&option);

@@ -8,8 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/lotachiigwe/project2/main.c" "CMakeFiles/project2.dir/main.c.o" "gcc" "CMakeFiles/project2.dir/main.c.o.d"
-  "/Users/lotachiigwe/project2/twitter_create.c" "CMakeFiles/project2.dir/twitter_create.c.o" "gcc" "CMakeFiles/project2.dir/twitter_create.c.o.d"
+  "C:/Users/sujin/project2/project2/functionality.c" "CMakeFiles/project2.dir/functionality.c.obj" "gcc" "CMakeFiles/project2.dir/functionality.c.obj.d"
+  "C:/Users/sujin/project2/project2/main.c" "CMakeFiles/project2.dir/main.c.obj" "gcc" "CMakeFiles/project2.dir/main.c.obj.d"
+  "C:/Users/sujin/project2/project2/printing.c" "CMakeFiles/project2.dir/printing.c.obj" "gcc" "CMakeFiles/project2.dir/printing.c.obj.d"
+  "C:/Users/sujin/project2/project2/twitter_create.c" "CMakeFiles/project2.dir/twitter_create.c.obj" "gcc" "CMakeFiles/project2.dir/twitter_create.c.obj.d"
   )
 
 # Targets to which this target links.

@@ -8,7 +8,7 @@ void create_twitter_system(twitter * twitter_system){
     int num;
     twitter_system->users = NULL; // user pointer points to null at the start
     twitter_system ->count_user =0; // assume that there's no user in the system
-    
+    printf("Welcome to Twitter\n");
     printf("How many users do you want to create: ");
     scanf("%d", &num);
     while(num <=0 || num>MAX_USERS){
